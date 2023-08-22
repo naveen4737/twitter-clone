@@ -27,20 +27,25 @@ app.use((req, res, next) => {
     next();
 })
 
-//routes
-//user routes
-app.use("/api/v1/users", require("./routes/userRoutes"));
-//tweet routes routes
+app.use("/api/v1/users", require("./routes/userRoutes"))
 app.use("/api/v1/tweet", require("./routes/tweetRoutes"));
 
-//static files
-// app.use(express.static(path.join(__dirname, "./client/build")));
 
-// app.get("*", function (req, res) {
-//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
+if(process.env.NODE_ENV === "production"){
+  console.log("iosdn");
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client", "build", "index.html"))
+  })
+}
+else{
+  app.get("/", (req, res) => {
+    console.log(process.env.NODE_ENV)
+    res.send("api running");
+  })
+}
 
-//port
+
 const PORT = process.env.PORT || 8080;
 
 //listen server
