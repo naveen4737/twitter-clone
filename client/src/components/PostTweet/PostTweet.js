@@ -17,7 +17,7 @@ const PostTweet = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const url = "http://localhost:9000/api/v1/tweet/create"
+      const url = "/api/v1/tweet/create"
       console.log(token)
       const response = await axios.post(url, data, {
           headers: { Authorization: `Bearer ${token}` }

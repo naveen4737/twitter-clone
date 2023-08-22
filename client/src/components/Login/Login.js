@@ -19,7 +19,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:9000/api/v1/users/login"
+      const url = "/api/v1/users/login"
       const { data: res } = await axios.post(url, data)
 
       console.log(res)

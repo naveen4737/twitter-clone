@@ -9,7 +9,7 @@ const NotFollowing = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const url = "http://localhost:9000/api/v1/users/notfollowingusers"
+      const url = "/api/v1/users/notfollowingusers"
       const response = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -25,7 +25,7 @@ const NotFollowing = () => {
   const handleFollow = async (username) => {
     try {
       const token = localStorage.getItem("token");
-      const url = `http://localhost:9000/api/v1/users/follow`
+      const url = `/api/v1/users/follow`
 
       const data = {
         "usernameFollow": username

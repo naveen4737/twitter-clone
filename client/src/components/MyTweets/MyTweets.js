@@ -21,7 +21,7 @@ const MyTweets = () => {
   const handleDelete = async (tweet) => {
     try {
       const token = localStorage.getItem("token");
-      const url = `http://localhost:9000/api/v1/tweet/${tweet.id}`
+      const url = `/api/v1/tweet/${tweet.id}`
     
       const response = await axios.delete(url, {
           headers: { Authorization: `Bearer ${token}` }
@@ -53,7 +53,7 @@ const MyTweets = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const url = "http://localhost:9000/api/v1/tweet/edit"
+      const url = "/api/v1/tweet/edit"
       
       const data = {
         text: selectedTweet.text,
@@ -81,7 +81,7 @@ const MyTweets = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const url = "http://localhost:9000/api/v1/tweet/mytweets"
+      const url = "/api/v1/tweet/mytweets"
       const response = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` }
       })
