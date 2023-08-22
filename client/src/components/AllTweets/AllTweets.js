@@ -18,18 +18,13 @@ const AllTweets = () => {
           headers: { Authorization: `Bearer ${token}` }
         })
 
-        console.log(response)
-        console.log(response.data)
         setAllMyTweets(response.data.tweets)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-
     fetchData();
-
   }, [])
-
 
   return (
     <>

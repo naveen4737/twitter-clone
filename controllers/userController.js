@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
-// login controller
 const loginController = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -23,7 +22,6 @@ const loginController = async (req, res) => {
       JWT_SECRET_KEY
     );
 
-    console.log("login successfull")
     res.status(201).json({ success: true, user: existingUser, token: token, message: "Login successfull" });
   } catch (error) {
     res.status(400).json({
@@ -34,7 +32,6 @@ const loginController = async (req, res) => {
   }
 };
 
-//Register Callback
 const registerController = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -45,7 +42,6 @@ const registerController = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log(username+", "+password+" "+hashedPassword)
     const newUser = new userModel({ username: username, password: hashedPassword });
     const result = await newUser.save();
 
@@ -140,7 +136,6 @@ const getFollowedUserController = async (req, res) => {
 };
 
 const getNotFollowingUserController = async (req, res) => {
-  console.log("getting not following list")
   try{
     const { username, userId } = req.body;
 

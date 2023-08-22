@@ -8,14 +8,10 @@ const NotFollowing = () => {
   async function fetchNotFollowing() {
     try {
       const token = localStorage.getItem("token");
-
       const url = "/api/v1/users/notfollowingusers"
       const response = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` }
       })
-
-      console.log(response)
-      console.log(response.data)
       setAllUnfollowedUsers(response.data.notfollowing)
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -33,18 +29,10 @@ const NotFollowing = () => {
       const response = await axios.put(url, data,{
           headers: { Authorization: `Bearer ${token}` }
         })
-      console.log(response)
-      if(response.status == 200){
-        // tweet posted
-        console.log("user followed")
-      }
 
       fetchNotFollowing();
     } catch (error) {
       console.log(error);
-      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-        // setError(error.response.data.message)
-      }
     }
   };
 
@@ -57,12 +45,8 @@ const NotFollowing = () => {
       <div>
         <div className="container">
           <h5 className='mt-5'>Unfollowed Users</h5>
-          {/* <button onClick={fetchData}>
-            Fetch
-          </button> */}
           <div className="mt-5">
             {allUnfollowedUsers.map(user => (
-              // <Tweet tweet={tweet} />
               <>
               <div className='mb-3'>
                 <h4>{user.username}</h4>

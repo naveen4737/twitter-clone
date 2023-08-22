@@ -22,7 +22,6 @@ const Signup = () => {
       const url = "/api/v1/users/register"
       const { data: res } = await axios.post(url, data)
       navigate("/login");
-      console.log(res.message)
     } catch (error) {
       console.log(error);
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {

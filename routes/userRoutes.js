@@ -11,23 +11,24 @@ const {
 } = require("../controllers/userController");
 const { auth } = require("../middlewares/auth")
 
-//router object
 const router = express.Router();
 
-//routers
+// login user
 router.post("/login", loginController);
 
+// register user
 router.post("/register", registerController);
 
+// follow user
 router.put("/follow", auth, followUserController);
-// username of the user to follow should be passed
 
+// unfollow user
 router.put("/unfollow", auth, unfollowUserController);
-// username of the user to unfollow should be passed
 
-
-
+// get list of users followed by current user
 router.get("/followedusers", auth, getFollowedUserController);;
+
+// get list of users not followed by current user
 router.get("/notfollowingusers", auth, getNotFollowingUserController);
 
 module.exports = router;

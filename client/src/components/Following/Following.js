@@ -14,8 +14,6 @@ const Following = () => {
         headers: { Authorization: `Bearer ${token}` }
       })
 
-      console.log(response)
-      console.log(response.data)
       setAllFollowedUsers(response.data.following)
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -33,7 +31,6 @@ const Following = () => {
       const response = await axios.put(url, data, {
         headers: { Authorization: `Bearer ${token}` }
       })
-      console.log(response)
       if (response.status == 200) {
         // tweet posted
         console.log("tweet deleted")
@@ -42,9 +39,6 @@ const Following = () => {
       fetchFollowing();
     } catch (error) {
       console.log(error);
-      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-        // setError(error.response.data.message)
-      }
     }
   };
 
@@ -57,12 +51,8 @@ const Following = () => {
       <div>
         <div className="container">
           <h5 className='mt-5'>Followed Users</h5>
-          {/* <button onClick={fetchData}>
-            Fetch
-          </button> */}
           <div className="mt-5">
             {allFollowedUsers.map(follows => (
-              // <Tweet tweet={tweet} />
               <>
                 <div className='mb-3'>
                   <h4>{follows.username}</h4>

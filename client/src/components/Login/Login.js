@@ -22,7 +22,6 @@ const Login = () => {
       const url = "/api/v1/users/login"
       const { data: res } = await axios.post(url, data)
 
-      console.log(res)
       localStorage.setItem("token", res.token)
       localStorage.setItem("username", res.user.username)
       window.location = "/";

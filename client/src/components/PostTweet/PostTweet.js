@@ -52,6 +52,9 @@ const PostTweet = () => {
             <hr />
             <button className="btn btn-success px-4 py-3 mb-4" type="submit">Post</button>
           </form>
+          {error && (
+            <div className="error">{error}</div>
+          )}
           {message && <Message text={message}/>}
           <br />
         </div>

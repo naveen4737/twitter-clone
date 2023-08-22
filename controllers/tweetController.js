@@ -1,16 +1,12 @@
-// const userModel = require("../models/userModel");
 const tweetModel = require("../models/tweetModel");
 const followerModel = require("../models/followerModel");
 
-// login callback
 const postTweet = async (req, res) => {
-  console.log("posting tweet")
   try {
     const { username, userId, text } = req.body;
     
     const newUser = new tweetModel({ username: username, text: text });
     const result = await newUser.save();
-    console.log(result);
 
     res.status(201).json({
       success: true,
@@ -27,7 +23,6 @@ const postTweet = async (req, res) => {
 };
 
 const editTweet = async (req, res) => {
-  console.log("editing tweet")
   try {
     const { username, userId, text, id } = req.body;
 
@@ -35,7 +30,6 @@ const editTweet = async (req, res) => {
     if (!existingTweet) {
       return res.status(400).json({ success: false, message: "No Tweet" });
     }
-
 
     const updatedTweet = await tweetModel.findByIdAndUpdate(id, { text: text }, { new: true });
 
@@ -55,10 +49,8 @@ const editTweet = async (req, res) => {
 };
 
 const deleteTweet = async (req, res) => {
-  console.log("deleting tweet")
   try {
     const { username, userId } = req.body;
-    console.log(req.params)
     const {id} = req.params;
 
     const existingTweet = await tweetModel.findOne({ username: username, _id: id });
@@ -82,13 +74,9 @@ const deleteTweet = async (req, res) => {
   }
 };
 
-// Fetch all the tweets for the user
 const fetchTweet = async (req, res) => {
   try {
     const { username, page } = req.body;
-
-    // const newUser = new userModel(req.body);
-    // await newUser.save();
 
     const userUsername = username;
     const pageSize = 10;

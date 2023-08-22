@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-//schema design
 const tweetSchema = new mongoose.Schema(
   {
     username: {
@@ -15,6 +14,5 @@ const tweetSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-//export
 const tweetModel = mongoose.model("tweets", tweetSchema);
 module.exports = tweetModel;

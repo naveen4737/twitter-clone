@@ -24,18 +24,10 @@ const MyTweets = () => {
       const response = await axios.delete(url, {
         headers: { Authorization: `Bearer ${token}` }
       })
-      console.log(response)
-      if (response.status == 200) {
-        // tweet posted
-        console.log("tweet deleted")
-      }
 
       fetchData();
     } catch (error) {
       console.log(error);
-      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-        // setError(error.response.data.message)
-      }
     }
   };
 
@@ -70,9 +62,6 @@ const MyTweets = () => {
 
     } catch (error) {
       console.log(error);
-      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-        // setError(error.response.data.message)
-      }
     }
   }
 
@@ -133,10 +122,6 @@ const MyTweets = () => {
         onRequestClose={closeModal}
         contentLabel="Edit Modal"
       >
-        {/* <EditModalContent
-          tweet={selectedTweet}
-          closeModal={closeModal}
-        /> */}
         {
           selectedTweet && <>
             <h5 className='mt-5'>Edit Tweet</h5>
