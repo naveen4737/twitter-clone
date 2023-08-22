@@ -63,15 +63,17 @@ const NotFollowing = () => {
           <div className="mt-5">
             {allUnfollowedUsers.map(user => (
               // <Tweet tweet={tweet} />
-              <div>
+              <>
+              <div className='mb-3'>
                 <h4>{user.username}</h4>
-                <button onClick={() => { handleFollow(user.username) }}>
+                <button onClick={() => { handleFollow(user.username) }} className='btn btn-info'>
                   Follow
                 </button>
               </div>
+              <hr/>
+              </>
             ))}
           </div>
-          <hr></hr>
         </div>
       </div>
     </>

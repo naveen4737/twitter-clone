@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from '../Navbar'
 import axios from 'axios'
-import Tweet from '../Tweet/Tweet';
 import Modal from 'react-modal';
-
+import moment from 'moment';
+import Message from '../Message/Message';
 
 const MyTweets = () => {
 
   const [allMyTweets, setAllMyTweets] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTweet, setSelectedTweet] = useState(null);
+  const [message, setMessage] = useState(null);
 
   const handleEdit = (tweet) => {
-    console.log("edit clicked")
-    console.log(tweet)
     setSelectedTweet(tweet);
     setIsModalOpen(true);
   };
@@ -22,12 +20,12 @@ const MyTweets = () => {
     try {
       const token = localStorage.getItem("token");
       const url = `/api/v1/tweet/${tweet.id}`
-    
+
       const response = await axios.delete(url, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
+        headers: { Authorization: `Bearer ${token}` }
+      })
       console.log(response)
-      if(response.status == 200){
+      if (response.status == 200) {
         // tweet posted
         console.log("tweet deleted")
       }
@@ -54,17 +52,18 @@ const MyTweets = () => {
     try {
       const token = localStorage.getItem("token");
       const url = "/api/v1/tweet/edit"
-      
+
       const data = {
         text: selectedTweet.text,
         id: selectedTweet.id
       }
       const response = await axios.put(url, data, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
+        headers: { Authorization: `Bearer ${token}` }
+      })
       console.log(response)
-      if(response.status == 201){
-        // tweet posted
+      if (response.status == 201) {
+        // tweet updated
+        setMessage(response.data.message)
       }
 
       fetchData();
@@ -98,7 +97,7 @@ const MyTweets = () => {
 
     fetchData();
 
-  }, [])
+  }, [message])
 
 
   return (
@@ -106,30 +105,30 @@ const MyTweets = () => {
       <div>
         <div className="container">
           <h5 className='mt-5'>Your Tweets</h5>
-          {/* <button onClick={fetchData}>
-            Fetch
-          </button> */}
           <div className="mt-5">
             {allMyTweets.map(tweet => (
-              // <Tweet tweet={tweet} />
-              <div>
-                <h4>{tweet.username}</h4>
-                <p>{tweet.text}</p>
-                <button onClick={() => { handleEdit(tweet) }}>
-                  Edit
-                </button>
-                <button onClick={() => { handleDelete(tweet) }}>
-                  Delete
-                </button>
-              </div>
+              <>
+                <div className="card mb-5">
+                  <div className="card-body">
+                    <h6 className="card-subtitle mb-2 text-body-secondary">{tweet.username}</h6>
+                    <p className="card-text">{tweet.text}</p>
+                    <p className="card-text">Posted on: {moment(tweet.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</p>
+                    <button onClick={() => { handleEdit(tweet) }} className='btn btn-secondary me-4'>
+                      Edit
+                    </button>
+                    <button onClick={() => { handleDelete(tweet) }} className='btn btn-danger me-4'>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </>
             ))}
           </div>
           <hr></hr>
         </div>
-      </div>
+      </div >
 
-      {/* Edit Modal */}
-      <Modal
+      < Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         contentLabel="Edit Modal"
@@ -138,22 +137,20 @@ const MyTweets = () => {
           tweet={selectedTweet}
           closeModal={closeModal}
         /> */}
-        {selectedTweet && <>
-          <p>{selectedTweet.text}</p>
-          <h5 className='mt-5'>Post a Tweet</h5>
-          <div className="mt-5">
-            <form className="mt-4" onSubmit={editTweet}>
-              <input type="text" className="form-control p-3 mt-3" id="title" name="text" value={selectedTweet.text} onChange={handleChange} required placeholder='Tweet something' />
-              <hr />
-              <button className="btn btn-success px-4 py-3 mb-4" type="submit">Save</button>
-            </form>
-            {/* {error && (
-              <div className="error">{error}</div>
-            )} */}
-            <br />
-          </div>
-        </>}
-      </Modal>
+        {
+          selectedTweet && <>
+            <h5 className='mt-5'>Edit Tweet</h5>
+            <div className="mt-5">
+              <form onSubmit={editTweet}>
+                <input type="text" className="form-control p-3 mb-3" id="title" name="text" value={selectedTweet.text} onChange={handleChange} required placeholder='Tweet something' />
+                <button className="btn btn-primary px-4 py-3 mb-4" type="submit">Save</button>
+              </form>
+              {message && <Message text={message}/>}
+              <br />
+            </div>
+          </>
+        }
+      </Modal >
     </>
   )
 }

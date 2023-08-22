@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import Navbar from '../Navbar'
-import axios from 'axios'
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import moment from 'moment';
 
 const AllTweets = () => {
 
@@ -36,13 +35,18 @@ const AllTweets = () => {
     <>
       <div>
         <div className="container">
-          <h5 className='mt-5'>Your Timeline</h5>
+          <h5 className='mt-5'>Your Timeline {localStorage.getItem("username")}</h5>
           <div className="mt-5">
             {allMyTweets.map(tweet => (
-              <div>
-                <h4>{tweet.username}</h4>
-                <p>{tweet.text}</p>
-              </div>
+              <>
+                <div className="card mb-5">
+                  <div className="card-body">
+                    <h6 className="card-subtitle mb-2 text-body-secondary">{tweet.username}</h6>
+                    <p className="card-text">{tweet.text}</p>
+                    <p className="card-text">Posted on: {moment(tweet.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</p>
+                  </div>
+                </div>
+              </>
             ))}
           </div>
           <hr></hr>

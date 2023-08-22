@@ -30,11 +30,11 @@ const Following = () => {
       const data = {
         "usernameFollow": username
       }
-      const response = await axios.put(url, data,{
-          headers: { Authorization: `Bearer ${token}` }
-        })
+      const response = await axios.put(url, data, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
       console.log(response)
-      if(response.status == 200){
+      if (response.status == 200) {
         // tweet posted
         console.log("tweet deleted")
       }
@@ -63,15 +63,17 @@ const Following = () => {
           <div className="mt-5">
             {allFollowedUsers.map(follows => (
               // <Tweet tweet={tweet} />
-              <div>
-                <h4>{follows.username}</h4>
-                <button onClick={() => { handleUnfollow(follows.username) }}>
-                  Unfollow
-                </button>
-              </div>
+              <>
+                <div className='mb-3'>
+                  <h4>{follows.username}</h4>
+                  <button onClick={() => { handleUnfollow(follows.username) }} className='btn btn-danger'>
+                    Unfollow
+                  </button>
+                </div>
+                <hr />
+              </>
             ))}
           </div>
-          <hr></hr>
         </div>
       </div>
     </>

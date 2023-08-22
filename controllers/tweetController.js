@@ -14,12 +14,14 @@ const postTweet = async (req, res) => {
 
     res.status(201).json({
       success: true,
+      message: "Tweet Posted"
     });
   } catch (error) {
     console.log(error)
     res.status(400).json({
       success: false,
       error,
+      message: "Something went wrong"
     });
   }
 };
@@ -39,13 +41,15 @@ const editTweet = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      tweet: updatedTweet
+      tweet: updatedTweet,
+      message: "Tweet Edited"
     });
   } catch (error) {
     console.log(error)
     res.status(400).json({
       success: false,
       error,
+      message: "Something went wrong"
     });
   }
 };
@@ -66,12 +70,14 @@ const deleteTweet = async (req, res) => {
 
     res.status(200).json({
       success: true,
+      message: "Tweet deleted"
     });
   } catch (error) {
     console.log(error)
     res.status(400).json({
       success: false,
       error,
+      message: "Something went wrong"
     });
   }
 };

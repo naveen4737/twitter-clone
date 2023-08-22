@@ -28,6 +28,7 @@ const loginController = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       success: false,
+      message: "Something went wrong",
       error,
     });
   }
@@ -55,13 +56,15 @@ const registerController = async (req, res) => {
     res.status(201).json({
       success: true,
       user: result,
-      token: token
+      token: token,
+      message: "Registration successfull"
     });
   } catch (error) {
     console.log(error)
     res.status(400).json({
       success: false,
       error,
+      message: "Something went wrong"
     });
   }
 };
@@ -80,12 +83,13 @@ const followUserController = async (req, res) => {
     const newFollower = new followerModel({ username: username, followUsername: usernameFollow });
     const result = await newFollower.save();
 
-    res.status(201).json({ success: true });
+    res.status(201).json({ success: true, message: "User followed" });
   } catch (error) {
     console.log(error);
     res.status(400).json({
       success: false,
       error,
+      message: "Something went wrong"
     });
   }
 };
@@ -98,12 +102,13 @@ const unfollowUserController = async (req, res) => {
       username: username, followUsername: usernameFollow
     });
 
-    return res.status(201).json({ success: true });
+    return res.status(201).json({ success: true, message: "User unfollowed" });
   } catch (error) {
     console.log(error);
     res.status(400).json({
       success: false,
       error,
+      message: "Something went wrong"
     });
   }
 };
@@ -161,18 +166,6 @@ const getNotFollowingUserController = async (req, res) => {
       success: false,
       error
     });
-  }
-};
-
-const getAllUsers = async (req, res) => {
-  try{
-    
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error
-    });
-
   }
 };
 

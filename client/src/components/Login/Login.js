@@ -24,6 +24,7 @@ const Login = () => {
 
       console.log(res)
       localStorage.setItem("token", res.token)
+      localStorage.setItem("username", res.user.username)
       window.location = "/";
     } catch (error) {
       console.log(error);

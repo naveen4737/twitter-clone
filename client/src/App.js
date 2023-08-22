@@ -16,13 +16,15 @@ function App() {
     <Navbar/>
     <Routes>
       {user && <Route path="/" exact element={<Home/>} />}
-      <Route path="/post" exact element={<PostTweet/>} />
-      <Route path="/signup" exact element={<Signup/>} />
-      <Route path="/login" exact element={<Login/>} />
-      <Route path="/following" exact element={<Following/>} />
-      <Route path="/notfollowing" exact element={<NotFollowing/>} />
-      <Route path="/mytweets" exact element={<MyTweets/>} />
-      <Route path="/" exact element={<Navigate replace to="/login"/>} />
+      {user && <Route path="/post" exact element={<PostTweet/>} />}
+      {user && <Route path="/following" exact element={<Following/>} />}
+      {user && <Route path="/notfollowing" exact element={<NotFollowing/>} />}
+      {user && <Route path="/mytweets" exact element={<MyTweets/>} />}
+      {user && <Route path="*" element={<Navigate replace to="/"/>} />}
+
+      {!user && <Route path="/login" exact element={<Login/>} />}
+      {!user && <Route path="/signup" exact element={<Signup/>} />}
+      {!user && <Route path="*" element={<Navigate replace to="/login"/>} />}
     </Routes>
     </>
   );

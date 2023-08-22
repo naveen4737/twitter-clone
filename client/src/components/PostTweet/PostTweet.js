@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Message from '../Message/Message';
 
 const PostTweet = () => {
 
@@ -12,6 +13,8 @@ const PostTweet = () => {
     setData({ ...data, [input.name]: input.value });
   }
 
+  const [message, setMessage] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -22,9 +25,9 @@ const PostTweet = () => {
       const response = await axios.post(url, data, {
           headers: { Authorization: `Bearer ${token}` }
         })
-      console.log(response)
       if(response.status == 201){
         // tweet posted
+        setMessage(response.data.message)
       }
 
     } catch (error) {
@@ -34,6 +37,10 @@ const PostTweet = () => {
       }
     }
   }
+
+  useEffect(() => {
+    
+  }, [message])
 
   return (
     <>
@@ -45,9 +52,7 @@ const PostTweet = () => {
             <hr />
             <button className="btn btn-success px-4 py-3 mb-4" type="submit">Post</button>
           </form>
-          {error && (
-            <div className="error">{error}</div>
-          )}
+          {message && <Message text={message}/>}
           <br />
         </div>
       </div>
